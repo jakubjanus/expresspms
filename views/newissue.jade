@@ -1,19 +1,20 @@
 extends layout
 
 block content
-  #wrapper
+    #wrapper
         #display
             include navi
-    p <b>New issue form</b>
 
-    #display
-        #login        
-            form(method='post')
+            div.container
+            
+                p <b>New issue form</b>
+
+                form(method='post')
                 | Create new issue
                 div
-                    input(type='text', name='title')
+                input(type='text', name='title')
                 div
-                    textarea(name='content', rows='10')
+                textarea(name='content', rows='10')
                 div
-                    input(type='submit', value='Save')
+                input(type='submit', value='Save')
         

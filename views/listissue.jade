@@ -6,8 +6,10 @@ block content
 		#display
 			include navi
 
-		p list of issues (#{listissues.length})
+			div.container
 
-		- each issue in listissues			
-			p  <a href='/issue/#{issue._id}'> #{issue.title} </a> #{issue.content} 
+				b List of issues (#{listissues.length})
+
+				- each issue in listissues			
+					p  <a href='/issue/#{issue._id}'> #{issue.title} </a> #{issue.content} 
 
