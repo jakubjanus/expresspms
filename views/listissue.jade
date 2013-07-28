@@ -1,0 +1,13 @@
+extends layout
+
+block content
+
+	#wrapper
+		#display
+			include navi
+
+		p list of issues (#{listissues.length})
+
+		- each issue in listissues			
+			p  <a href='/issue/#{issue._id}'> #{issue.title} </a> #{issue.content} 
+
