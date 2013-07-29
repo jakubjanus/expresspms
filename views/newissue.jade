@@ -10,11 +10,15 @@ block content
                 p <b>New issue form</b>
 
                 form(method='post')
-                | Create new issue
-                div
-                input(type='text', name='title')
-                div
-                textarea(name='content', rows='10')
-                div
-                input(type='submit', value='Save')
+                 | Create new issue
+                 div
+                    select(name='projectId')
+                        - each project in projects
+                            option(value=project._id) #{project.name}
+                 div
+                    input(type='text', name='title', size='50')
+                 div
+                    textarea(name='content', rows='10', cols='50')
+                 div
+                    input(type='submit', value='Save')
         

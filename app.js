@@ -34,7 +34,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-app.get('/newissue', issues.show);
+app.get('/newissue', issues.newissue);
 app.post('/newissue', issues.issue_post_handler);
 
 app.get('/listissue', issues.list);

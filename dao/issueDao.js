@@ -1,11 +1,16 @@
 var dbManager = require('./connection');
+var mongoose = require('mongoose');
 
 var issueSchemaDef = {
 		title: String,
 		content: String,
+		created: Date,
+		modyfied: Date,
 		//dodać ref status
-		//dodać ref projekt
-		//dodać ref autor
+		
+		project_id : { type: mongoose.Schema.ObjectId, ref: 'Project' },
+		author_id : { type: mongoose.Schema.ObjectId, ref: 'User' },	
+		assigned_id : { type: mongoose.Schema.ObjectId, ref: 'User' }			
 	};
 
 var Issue = dbManager.initModel(issueSchemaDef,'issue');
@@ -47,8 +52,7 @@ exports.findAll = function(eventEmitter){
 	Issue.find({}, function(err, data){
 		if (err){
 			console.log('error while finding issues');
-		}else{			
-			//console.log('found in db '+data);			
+		}else{					
 			eventEmitter.emitData('data',data);
 		}
 	});		

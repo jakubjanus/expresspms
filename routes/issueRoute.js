@@ -1,20 +1,30 @@
-var service      = require('../service/issueService');
+var service        = require('../service/issueService');
+var utils          = require('../service/utilService');
+var projectService = require('../service/projectService');
 
-exports.show = function(req, res){		
-	res.render('newissue')	
+exports.newissue = function(req, res){	
+	var dataEventEmitterInstance = utils.getDataEventEmiter();
+	projectService.findAll(dataEventEmitterInstance);	
+
+	dataEventEmitterInstance.on('data', function(){				
+		res.render('newissue', {projects: dataEventEmitterInstance.data});	
+	});	
 };
 
 exports.issue_post_handler = function(req, res){
+
 	title = req.body.title;
-	content = req.body.content;		
+	content = req.body.content;	
+	projectId = req.body.projectId;
+	createDate = new Date();	
 	
-	service.create({title:title, content:content});		
+	service.create({title:title, content:content, project_id:projectId, created:createDate});		
 	
 	res.redirect('/listissue');
 }
 
 exports.list = function(req, res){		
-	var dataEventEmitterInstance = service.getDataEventEmiter();
+	var dataEventEmitterInstance = utils.getDataEventEmiter();
 
 	service.findAll(dataEventEmitterInstance);
 
@@ -25,7 +35,7 @@ exports.list = function(req, res){
 };
 
 exports.issue = function(req, res){
-	var dataEventEmitterInstance = service.getDataEventEmiter();
+	var dataEventEmitterInstance = utils.getDataEventEmiter();
 	var id = req.params.id;
 
 	console.log('id from url = '+id);
