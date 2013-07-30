@@ -60,3 +60,16 @@ exports.updateTitleAJAX = function(req, res) {
 	});	
   
 };
+
+exports.updateContentAJAX = function(req, res) {  
+ console.log('update issue content');
+  var dataEventEmitterInstance = utils.getDataEventEmiter();  
+
+  service.update(dataEventEmitterInstance, {_id:req.body.id, content: req.body.content});
+
+  dataEventEmitterInstance.on('data', function(){						
+		res.contentType('json');
+  		res.send({ some: JSON.stringify({response:'json'}) });
+	});	
+  
+};
