@@ -41,6 +41,8 @@ app.get('/listissue', issues.list);
 
 app.get('/issue/:id', issues.issue);
 
+app.post('/editIssueTitle', issues.updateTitleAJAX);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

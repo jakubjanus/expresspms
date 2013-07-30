@@ -5,7 +5,7 @@ var commentSchemaDef = {
 		content: String,		
 		author_id: { type: mongoose.Schema.ObjectId, ref: 'User' },
 		issue_id: { type: mongoose.Schema.ObjectId, ref: 'Issue' },
-		created: Date
+		created: { type: Date, default: Date.now }
 	};
 
 var Comment = dbManager.initModel(commentSchemaDef,'comment');

@@ -4,10 +4,9 @@ var mongoose = require('mongoose');
 var issueSchemaDef = {
 		title: String,
 		content: String,
-		created: Date,
+		created: { type: Date, default: Date.now },
 		modyfied: Date,
-		//dodać ref status
-		
+		status: {name:String, weight: Number},
 		project_id : { type: mongoose.Schema.ObjectId, ref: 'Project' },
 		author_id : { type: mongoose.Schema.ObjectId, ref: 'User' },	
 		assigned_id : { type: mongoose.Schema.ObjectId, ref: 'User' }			

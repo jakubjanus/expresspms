@@ -7,7 +7,7 @@ var userSchemaDef = {
 		email: String,
 		firstName: String,
 		lastName: String,
-		created: Date
+		created: { type: Date, default: Date.now }
 	};
 
 var User = dbManager.initModel(userSchemaDef,'user');

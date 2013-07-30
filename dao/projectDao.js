@@ -3,15 +3,31 @@ var mongoose = require('mongoose');
 
 var projectSchemaDef = {
 		name: String,
-		created: Date,
-		author_id : { type: mongoose.Schema.ObjectId, ref: 'User' }		
-	};
+		created: { type: Date, default: Date.now },
+		author_id: { type: mongoose.Schema.ObjectId, ref: 'User' },
+		statuses:  [{name:String, weight: Number}]	
+	};	
 
 var Project = dbManager.initModel(projectSchemaDef,'project');
+
+exports.getInitialStatuses = function(){
+	var initialStatuses = [
+		{name: 'new', weight: 0},
+		{name: 'in progress', weight: 1},
+		{name: 'done', weight: 2}
+	];			
+	return initialStatuses;
+}
+
+console.log('initialStatuses '+this.getInitialStatuses());
 
 exports.create = function(obj){    
 
 	var project = new Project(obj);
+	
+	if(obj.statuses === undefined){		
+		project.statuses = this.getInitialStatuses();	
+	}
 	
 	project.save(function(err, project){
 		if (err){

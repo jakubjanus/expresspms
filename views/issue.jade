@@ -6,7 +6,11 @@ block content
 		#display
 			include navi
 
+			script(type='text/javascript', src='/javascripts/issue.js')	
+
+			<input id="id" type="hidden" value="#{issue.id}"/>
+
 			div.container
 
-				h3 #{issue.title}
+				h3#title #{issue.title}
 				p #{issue.content}

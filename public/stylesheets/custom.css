@@ -9,3 +9,8 @@
 .container {
 	padding-top: 5px;
 }
+
+.inPlaceEditButton {
+	height: 20px;
+	font-size: 10px;
+}
