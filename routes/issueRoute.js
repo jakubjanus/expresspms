@@ -1,6 +1,7 @@
 var service        = require('../service/issueService');
 var utils          = require('../service/utilService');
 var projectService = require('../service/projectService');
+var commentService = require('../service/commentService');
 
 exports.newissue = function(req, res){	
 	var dataEventEmitterInstance = utils.getDataEventEmiter();
@@ -62,7 +63,7 @@ exports.updateTitleAJAX = function(req, res) {
 };
 
 exports.updateContentAJAX = function(req, res) {  
- console.log('update issue content');
+  console.log('update issue content');
   var dataEventEmitterInstance = utils.getDataEventEmiter();  
 
   service.update(dataEventEmitterInstance, {_id:req.body.id, content: req.body.content});
@@ -70,6 +71,17 @@ exports.updateContentAJAX = function(req, res) {
   dataEventEmitterInstance.on('data', function(){						
 		res.contentType('json');
   		res.send({ some: JSON.stringify({response:'json'}) });
-	});	
+  });	
   
 };
+
+exports.getCommentsAJAX = function(req, res) {
+	var dataEventEmitterInstance = utils.getDataEventEmiter(); 	
+
+	commentService.findByIssue(dataEventEmitterInstance, req.body.issue_id);
+
+	dataEventEmitterInstance.on('data', function(){						
+		res.contentType('json');		
+  		res.send(dataEventEmitterInstance.data);
+  	});	
+}

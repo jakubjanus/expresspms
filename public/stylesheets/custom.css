@@ -18,3 +18,28 @@
 .inPlaceEditInput {
 	width: 940px;
 }
+
+.smallTag {
+	font-size: 10px;
+	color: #476B6B;
+}
+
+#title {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+.comment {
+	font-size: 10px;
+	background-color: #E2E4E4;
+	color:#3D7A99;
+	padding: 10px;
+}
+
+.commentMeta {
+	font-size: 10px;	
+	background-color: #E2E4E4;
+	color:#000C18;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}

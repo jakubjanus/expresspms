@@ -47,3 +47,14 @@ exports.findById = function(eventEmitter, id){
 		}
 	});
 }
+
+exports.findByIssue = function(eventEmitter, issue_id){
+		
+	Comment.find({'issue_id':issue_id}, function(err, data){
+		if (err){
+			console.log('error while finding comments');
+		}else{					
+			eventEmitter.emitData('data',data);
+		}
+	});	
+}

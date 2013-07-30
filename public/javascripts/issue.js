@@ -95,6 +95,28 @@ $(document).ready(function() {
 		$(el).append('<input type="hidden" id="orgContent" value="'+content+'"/>');
 	}
 
-	
+	function getIssueComments(){
+		console.log('send ajax post req');
+
+		$.ajax({
+		  url: "/getIssueComments",
+		  type: "POST",		  
+		  accepts: "application/json",
+		  data: {
+		      issue_id: $('#id').val()
+		  },		  
+		  cache: false
+		}).done(function(msg) {
+		  
+		  for (var i = 0; i < msg.length ; i++) {
+		  	 var content = msg[i].content;
+		  	 var created = msg[i].created;
+		  	 $('#comments').append('<p class="commentMeta">'+created+'</p>');
+		  	 $('#comments').append('<p class="comment">'+content+'</p>');
+		  };			  
+		});
+	};
+
+	getIssueComments();
 
 });

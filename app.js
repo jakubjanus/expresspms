@@ -45,6 +45,8 @@ app.post('/editIssueTitle', issues.updateTitleAJAX);
 
 app.post('/editIssueContent', issues.updateContentAJAX);
 
+app.post('/getIssueComments', issues.getCommentsAJAX);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
