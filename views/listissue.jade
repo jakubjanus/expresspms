@@ -8,8 +8,18 @@ block content
 
 			div.container
 
-				b List of issues (#{listissues.length})
+				h3 List of issues (#{listissues.length})
 
-				- each issue in listissues			
-					p  <a href='/issue/#{issue._id}'> #{issue.title} </a> #{issue.content} 
+				- each issue, i in listissues			
+							div.col-lg-3
+								div.thumbnail
+									div.caption
+										h3 <a href='/issue/#{issue._id}'> #{issue.title} </a> 
+										span#status.label.label-success #{issue.status.name}
+										p #{issue.content}
+										p
+											a.btn.btn-primary Action
+											&nbsp
+											a.btn.btn-default Action	
+
 

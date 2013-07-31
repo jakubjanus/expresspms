@@ -13,11 +13,11 @@ block content
 			div.container
 
 				h3#title #{issue.title}
-				span#status.smallTag #{issue.status.name}
+				span#status.label.label-success #{issue.status.name}
 
 				p#content #{issue.content}
 
 				div#comments
 
 				div#newCommnet
-					a#addComment add comment
+					a#addComment.btn.btn-primary add comment

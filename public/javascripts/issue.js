@@ -50,8 +50,8 @@ $(document).ready(function() {
 		$(el).text('');
 		$(el).attr('id','titleInEdit');
 		$(el).append('<input id="titleEdit" class="inPlaceEditInput" value="'+content+'" />');
-		$(el).append('<input type="button" id="titleEditSave" class="inPlaceEditButton" value="save"/>');
-		$(el).append('<input type="button" id="titleEditCancel" class="inPlaceEditButton" value="cancel" />');
+		$(el).append('<input type="button" id="titleEditSave" class="inPlaceEditButton btn btn-primary" value="save"/>');
+		$(el).append('<input type="button" id="titleEditCancel" class="inPlaceEditButton btn btn-default" value="cancel" />');
 		$(el).append('<input type="hidden" id="orgTitle" value="'+content+'"/>');
 	}
 
@@ -90,8 +90,8 @@ $(document).ready(function() {
 		$(el).text('');
 		$(el).attr('id','contentInEdit');
 		$(el).append('<textarea style="height:'+height+'px" rows="10" id="contentEdit" class="inPlaceEditInput">'+content+'</textarea>');
-		$(el).append('<input type="button" id="contentEditSave" class="inPlaceEditButton" value="save"/>');
-		$(el).append('<input type="button" id="contentEditCancel" class="inPlaceEditButton" value="cancel" />');
+		$(el).append('<input type="button" id="contentEditSave" class="inPlaceEditButton btn btn-primary" value="save"/>');
+		$(el).append('<input type="button" id="contentEditCancel" class="inPlaceEditButton btn btn-default" value="cancel" />');
 		$(el).append('<input type="hidden" id="orgContent" value="'+content+'"/>');
 	}
 

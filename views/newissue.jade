@@ -7,18 +7,18 @@ block content
 
             div.container
             
-                p <b>New issue form</b>
+                h3 New issue form
 
                 form(method='post')
-                 | Create new issue
-                 div
-                    select(name='projectId')
+                
+                 div.input-group                    
+                    select(name='projectId', class='form-control', placeholder='project')
                         - each project in projects
                             option(value=project._id) #{project.name}
+                 div.input-group                      
+                    input(type='text', name='title', size='50', class='form-control', placeholder='title')
+                 div.input-group                     
+                    textarea(name='content', rows='10', cols='50', class='form-control', placeholder='content')
                  div
-                    input(type='text', name='title', size='50')
-                 div
-                    textarea(name='content', rows='10', cols='50')
-                 div
-                    input(type='submit', value='Save')
+                    input(type='submit', value='Save', class='btn btn-primary')
         
