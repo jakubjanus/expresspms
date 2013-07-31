@@ -1,24 +1,23 @@
 var dbManager = require('./connection');
 var mongoose = require('mongoose');
 
-var commentSchemaDef = {
-		content: String,	
-		//todo sekwencja - do zastanowienia	
-		nb: Number,
-		author_id: { type: mongoose.Schema.ObjectId, ref: 'User' },
-		issue_id: { type: mongoose.Schema.ObjectId, ref: 'Issue' },
+var groupSchemaDef = {
+		title: String,
+		content: String,
+		project_id : { type: mongoose.Schema.ObjectId, ref: 'Project' },
+		author_id: { type: mongoose.Schema.ObjectId, ref: 'User' },		
 		created: { type: Date, default: Date.now }
 	};
 
-var Comment = dbManager.initModel(commentSchemaDef,'comment');
+var Group = dbManager.initModel(groupSchemaDef,'group');
 
 exports.create = function(obj){    
 	
-	var comment = new Comment(obj);
+	var group = new Group(obj);
 	
-	comment.save(function(err, comment){
+	group.save(function(err, group){
 		if (err){
-			console.log('error while saving comment');
+			console.log('error while saving group');
 		}else{
 			console.log('save completed');
 		}
@@ -27,9 +26,9 @@ exports.create = function(obj){
 
 exports.findAll = function(eventEmitter){  	
 	
-	Comment.find({}, function(err, data){
+	Group.find({}, function(err, data){
 		if (err){
-			console.log('error while finding comments');
+			console.log('error while finding groups');
 			eventEmitter.emitErr('err',err);
 		}else{					
 			eventEmitter.emitData('data',data);
@@ -39,7 +38,7 @@ exports.findAll = function(eventEmitter){
 
 exports.findById = function(eventEmitter, id){	
 
-	var query = Comment.find({'_id' : id});
+	var query = Group.find({'_id' : id});
 
 	query.findOne(function (err, data){
 		if (err){
@@ -52,11 +51,11 @@ exports.findById = function(eventEmitter, id){
 	});
 }
 
-exports.findByIssue = function(eventEmitter, issue_id){
+exports.findByProject = function(eventEmitter, project_id){
 		
-	Comment.find({'issue_id':issue_id}, function(err, data){
+	Group.find({'project_id':project_id}, function(err, data){
 		if (err){
-			console.log('error while finding comments');
+			console.log('error while finding groups');
 			eventEmitter.emitErr('err',err);
 		}else{					
 			eventEmitter.emitData('data',data);

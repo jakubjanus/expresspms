@@ -8,6 +8,7 @@ var issueSchemaDef = {
 		modyfied: Date,
 		status: {name:String, weight: Number},
 		project_id : { type: mongoose.Schema.ObjectId, ref: 'Project' },
+		group_id : { type: mongoose.Schema.ObjectId, ref: 'Group' },
 		author_id : { type: mongoose.Schema.ObjectId, ref: 'User' },	
 		assigned_id : { type: mongoose.Schema.ObjectId, ref: 'User' }			
 	};
@@ -38,6 +39,7 @@ exports.update = function(eventEmitter, obj){
 	Issue.findOneAndUpdate(query, obj, options, function(err, data) {
 		if(err){
 			console.log('error while updating issue'+err);
+			eventEmitter.emitErr('err',err);
 		}else{
 			console.log('issue updated '+data);
 			eventEmitter.emitData('data',data);
@@ -51,6 +53,7 @@ exports.findAll = function(eventEmitter){
 	Issue.find({}, function(err, data){
 		if (err){
 			console.log('error while finding issues');
+			eventEmitter.emitErr('err',err);
 		}else{					
 			eventEmitter.emitData('data',data);
 		}
@@ -64,6 +67,7 @@ exports.findById = function(eventEmitter, id){
 	query.findOne(function (err, data){
 		if (err){
 			console.log('error while finding by id');
+			eventEmitter.emitErr('err',err);
 		}else{
 			console.log('found in db '+data);
 			eventEmitter.emitData('data',data);

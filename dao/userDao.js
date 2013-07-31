@@ -30,6 +30,7 @@ exports.findAll = function(eventEmitter){
 	User.find({}, function(err, data){
 		if (err){
 			console.log('error while finding users');
+			eventEmitter.emitErr('err',err);
 		}else{					
 			eventEmitter.emitData('data',data);
 		}
@@ -43,6 +44,7 @@ exports.findById = function(eventEmitter, id){
 	query.findOne(function (err, data){
 		if (err){
 			console.log('error while finding by id');
+			eventEmitter.emitErr('err',err);
 		}else{
 			console.log('found in db '+data);
 			eventEmitter.emitData('data',data);

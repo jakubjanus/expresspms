@@ -1,4 +1,4 @@
-var dao          = require('../dao/commentDao');
+var dao          = require('../dao/groupDao');
 
 //może dodać emitery aby zwracać err
 exports.create = function(obj){
@@ -13,6 +13,6 @@ exports.findById = function(eventEmitter, id){
 	dao.findById(eventEmitter, id);	
 }
 
-exports.findByIssue = function(eventEmitter, issue_id){
-	dao.findByIssue(eventEmitter, issue_id);
+exports.findByProject = function(eventEmitter, project_id){
+	dao.findByProject(eventEmitter, project_id);
 }
