@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 
 var commentSchemaDef = {
 		content: String,		
+		nb: Number,
 		author_id: { type: mongoose.Schema.ObjectId, ref: 'User' },
 		issue_id: { type: mongoose.Schema.ObjectId, ref: 'Issue' },
 		created: { type: Date, default: Date.now }
