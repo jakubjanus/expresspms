@@ -19,7 +19,7 @@ exports.issue_post_handler = function(req, res){
 	projectId = req.body.projectId;
 	createDate = new Date();	
 	
-	service.create({title:title, content:content, project_id:projectId, created:createDate});		
+	service.create({title:title, content:content, project_id:projectId, created:createDate, status: {name:'new', weight: 0}});		
 	
 	res.redirect('/listissue');
 };
@@ -84,4 +84,13 @@ exports.getCommentsAJAX = function(req, res) {
 		res.contentType('json');		
   		res.send(dataEventEmitterInstance.data);
   	});	
+}
+
+exports.addCommentAJAX = function(req, res) {
+	var dataEventEmitterInstance = utils.getDataEventEmiter(); 	
+
+	commentService.create({issue_id:req.body.issue_id ,content:req.body.comment_content});
+
+	res.contentType('json');
+  	res.send({ some: JSON.stringify({response:'json'}) });
 }

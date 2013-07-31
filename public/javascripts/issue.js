@@ -16,6 +16,19 @@ $(document).ready(function() {
 		backFromContentEdit();
 	});
 
+	$('body').on('click', '#addComment', function(){		
+		newCommentEl();
+	});	
+
+	$('body').on('click', '#newCommentSave', function(){		
+		addNewComment();
+	});		
+
+	$('body').on('click', '#newCommentCancel', function(){		
+		$('#addComment').show();
+		$('#newCommentForm').remove();
+	});	
+
 	//bind event to dynamicly added element
 	$('body').on('click', '#titleEditSave', function(){
 		console.log('send ajax post req');
@@ -49,7 +62,7 @@ $(document).ready(function() {
 		console.log(content);
 		$(el).text('');
 		$(el).attr('id','titleInEdit');
-		$(el).append('<input id="titleEdit" class="inPlaceEditInput" value="'+content+'" />');
+		$(el).append('<input id="titleEdit" class="inPlaceEditInput form-control" value="'+content+'" />');
 		$(el).append('<input type="button" id="titleEditSave" class="inPlaceEditButton btn btn-primary" value="save"/>');
 		$(el).append('<input type="button" id="titleEditCancel" class="inPlaceEditButton btn btn-default" value="cancel" />');
 		$(el).append('<input type="hidden" id="orgTitle" value="'+content+'"/>');
@@ -83,13 +96,13 @@ $(document).ready(function() {
 	function editContent(el){
 		$(el).unbind();
 		var elHeight = $(el).css('height');
-		var height=parseInt(/([0-9]+)px$/.exec(elHeight)[1]) + 15;
+		var height=parseInt(/([0-9]+)px$/.exec(elHeight)[1]) + 45;
 		console.log('content edit');
 		var content = $(el).text();
 		console.log(content);
 		$(el).text('');
 		$(el).attr('id','contentInEdit');
-		$(el).append('<textarea style="height:'+height+'px" rows="10" id="contentEdit" class="inPlaceEditInput">'+content+'</textarea>');
+		$(el).append('<textarea style="height:'+height+'px" rows="10" id="contentEdit" class="inPlaceEditInput form-control">'+content+'</textarea>');
 		$(el).append('<input type="button" id="contentEditSave" class="inPlaceEditButton btn btn-primary" value="save"/>');
 		$(el).append('<input type="button" id="contentEditCancel" class="inPlaceEditButton btn btn-default" value="cancel" />');
 		$(el).append('<input type="hidden" id="orgContent" value="'+content+'"/>');
@@ -116,6 +129,34 @@ $(document).ready(function() {
 		  };			  
 		});
 	};
+
+	function newCommentEl(){		
+		$('#comments').append('<div id="newCommentForm"/>');
+		var el=$('#newCommentForm');
+		$(el).append('<textarea rows="5" id="newCommentContent" class="inPlaceEditInput form-control"></textarea>');
+		$(el).append('<input type="button" id="newCommentSave" class="inPlaceEditButton btn btn-primary" value="save"/>&nbsp;');
+		$(el).append('<input type="button" id="newCommentCancel" class="inPlaceEditButton btn btn-default" value="cancel" />');		
+		$('#addComment').hide();
+	}
+
+	function addNewComment(){
+		console.log('send ajax post req');
+
+		$.ajax({
+		  url: "/addComment",
+		  type: "POST",		  
+		  accepts: "application/json",
+		  data: {
+		      issue_id: $('#id').val(),
+		      comment_content: $('#newCommentContent').val()
+		  },		  
+		  cache: false
+		}).done(function(msg) {
+		  $('#comments').empty();
+		  getIssueComments();
+		  $('#addComment').show();		  
+		});
+	}
 
 	getIssueComments();
 

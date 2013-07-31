@@ -2,7 +2,8 @@ var dbManager = require('./connection');
 var mongoose = require('mongoose');
 
 var commentSchemaDef = {
-		content: String,		
+		content: String,	
+		//todo sekwencja - do zastanowienia	
 		nb: Number,
 		author_id: { type: mongoose.Schema.ObjectId, ref: 'User' },
 		issue_id: { type: mongoose.Schema.ObjectId, ref: 'Issue' },

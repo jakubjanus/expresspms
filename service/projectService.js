@@ -1,5 +1,6 @@
 var dao          = require('../dao/projectDao');
 
+//może dodać emitery aby zwracać err
 exports.create = function(obj){
 	dao.create(obj);
 };
