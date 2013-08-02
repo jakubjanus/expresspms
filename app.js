@@ -54,6 +54,8 @@ app.get('/newuser', users.newuser);
 app.post('/newuser', users.user_create);
 app.get('/listusers', users.list);
 
+app.post('/getProjects', projects.getProjectsAJAX);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

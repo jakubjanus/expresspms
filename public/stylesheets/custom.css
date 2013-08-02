@@ -55,3 +55,10 @@ body {
 	padding-left: 10px;
 	margin-bottom: 0px;
 }
+
+.project-switcher {
+	position: relative;
+	top:10px;
+	float: right;
+	padding-right: 70px;
+}

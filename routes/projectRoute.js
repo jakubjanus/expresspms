@@ -25,3 +25,14 @@ exports.list = function(req, res){
 		res.render('listprojects', { listprojects: dataEventEmitterInstance.data })	
 	});		
 };
+
+exports.getProjectsAJAX = function(req, res) {
+	var dataEventEmitterInstance = utils.getDataEventEmiter(); 	
+
+	projectService.findAll(dataEventEmitterInstance);
+
+	dataEventEmitterInstance.on('data', function(){						
+		res.contentType('json');		
+  		res.send(dataEventEmitterInstance.data);
+  	});	
+}
