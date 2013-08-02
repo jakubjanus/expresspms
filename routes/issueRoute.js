@@ -12,14 +12,13 @@ exports.newissue = function(req, res){
 	});	
 };
 
-exports.issue_post_handler = function(req, res){
+exports.issue_create = function(req, res){
 
 	title = req.body.title;
 	content = req.body.content;	
-	projectId = req.body.projectId;
-	createDate = new Date();	
+	projectId = req.body.projectId;	
 	
-	service.create({title:title, content:content, project_id:projectId, created:createDate, status: {name:'new', weight: 0}});		
+	service.create({title:title, content:content, project_id:projectId, status: {name:'new', weight: 0}});		
 	
 	res.redirect('/listissue');
 };

@@ -7,6 +7,7 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , issues = require('./routes/issueRoute')
+  , projects = require('./routes/projectRoute')
   , http = require('http')
   , path = require('path');
 
@@ -35,7 +36,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 
 app.get('/newissue', issues.newissue);
-app.post('/newissue', issues.issue_post_handler);
+app.post('/newissue', issues.issue_create);
 
 app.get('/listissue', issues.list);
 
@@ -48,6 +49,11 @@ app.post('/editIssueContent', issues.updateContentAJAX);
 app.post('/getIssueComments', issues.getCommentsAJAX);
 
 app.post('/addComment', issues.addCommentAJAX);
+
+app.get('/newproject', projects.newproject);
+app.post('/newproject', projects.project_create);
+
+app.get('/listprojects', projects.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
