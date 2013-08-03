@@ -39,6 +39,10 @@ body {
 	padding-bottom: 0px;
 }
 
+#content {
+	font-size: 12px;
+}
+
 .comment {
 	font-size: 10px;
 	background-color: #E2E4E4;
@@ -61,4 +65,18 @@ body {
 	top:10px;
 	float: right;
 	padding-right: 70px;
+}
+
+.small-info {
+	font-size: 10px;
+}
+
+.separator {
+	margin-bottom: 7px;
+	margin-top: 7px;
+}
+
+.issu-title-in-thumb {
+	height:70px;
+	overflow:hidden;
 }

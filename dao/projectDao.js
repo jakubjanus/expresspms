@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var projectSchemaDef = {
 		name: String,
 		created: { type: Date, default: Date.now },
-		author_id: { type: mongoose.Schema.ObjectId, ref: 'User' },
+		author_id: { type: mongoose.Schema.ObjectId, ref: 'user' },
 		statuses:  [{name:String, weight: Number}]	
 	};	
 

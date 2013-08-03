@@ -5,8 +5,8 @@ var commentSchemaDef = {
 		content: String,	
 		//todo sekwencja - do zastanowienia	
 		nb: Number,
-		author_id: { type: mongoose.Schema.ObjectId, ref: 'User' },
-		issue_id: { type: mongoose.Schema.ObjectId, ref: 'Issue' },
+		author_id: { type: mongoose.Schema.ObjectId, ref: 'user' },
+		issue_id: { type: mongoose.Schema.ObjectId, ref: 'issue' },
 		created: { type: Date, default: Date.now }
 	};
 

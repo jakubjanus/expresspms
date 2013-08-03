@@ -7,10 +7,11 @@ var issueSchemaDef = {
 		created: { type: Date, default: Date.now },
 		modyfied: Date,
 		status: {name:String, weight: Number},
-		project_id : { type: mongoose.Schema.ObjectId, ref: 'Project' },
-		group_id : { type: mongoose.Schema.ObjectId, ref: 'Group' },
-		author_id : { type: mongoose.Schema.ObjectId, ref: 'User' },	
-		assigned_id : { type: mongoose.Schema.ObjectId, ref: 'User' }			
+		priority: {name:String, weight: Number},
+		project_id : { type: mongoose.Schema.ObjectId, ref: 'project' },
+		group_id : { type: mongoose.Schema.ObjectId, ref: 'group' },
+		author_id : { type: mongoose.Schema.ObjectId, ref: 'user' },	
+		assigned_id : { type: mongoose.Schema.ObjectId, ref: 'user' }			
 	};
 
 var Issue = dbManager.initModel(issueSchemaDef,'issue');
@@ -62,7 +63,7 @@ exports.findAll = function(eventEmitter){
 
 exports.findById = function(eventEmitter, id){	
 
-	var query = Issue.find({'_id' : id});
+	var query = Issue.find({'_id' : id}).populate('author_id').populate('assigned_id');
 
 	query.findOne(function (err, data){
 		if (err){

@@ -1,24 +1,21 @@
 var dbManager = require('./connection');
 var mongoose = require('mongoose');
 
-var userSchemaDef = {
-		login: String,
-		password: String,
-		email: String,
-		firstName: String,
-		lastName: String,
-		created: { type: Date, default: Date.now }		
+var statusSchemaDef = {
+		name: String,
+		weight: Number,
+		project_id : { type: mongoose.Schema.ObjectId, ref: 'project' }
 	};
 
-var User = dbManager.initModel(userSchemaDef,'user');
+var Status = dbManager.initModel(statusSchemaDef,'status');
 
 exports.create = function(obj){    
 	
-	var user = new User(obj);
+	var status = new Status(obj);
 	
-	user.save(function(err, user){
+	status.save(function(err, status){
 		if (err){
-			console.log('error while saving user');
+			console.log('error while saving status');
 		}else{
 			console.log('save completed');
 		}
@@ -27,10 +24,9 @@ exports.create = function(obj){
 
 exports.findAll = function(eventEmitter){  	
 	
-	User.find({}, function(err, data){
+	Status.find({}, function(err, data){
 		if (err){
-			console.log('error while finding users');
-			eventEmitter.emitErr('err',err);
+			console.log('error while finding statuses');
 		}else{					
 			eventEmitter.emitData('data',data);
 		}
@@ -39,12 +35,11 @@ exports.findAll = function(eventEmitter){
 
 exports.findById = function(eventEmitter, id){	
 
-	var query = User.find({'_id' : id});
+	var query = Status.find({'_id' : id});
 
 	query.findOne(function (err, data){
 		if (err){
 			console.log('error while finding by id');
-			eventEmitter.emitErr('err',err);
 		}else{
 			console.log('found in db '+data);
 			eventEmitter.emitData('data',data);

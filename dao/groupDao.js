@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 var groupSchemaDef = {
 		title: String,
 		content: String,
-		project_id : { type: mongoose.Schema.ObjectId, ref: 'Project' },
-		author_id: { type: mongoose.Schema.ObjectId, ref: 'User' },		
+		project_id : { type: mongoose.Schema.ObjectId, ref: 'project' },
+		author_id: { type: mongoose.Schema.ObjectId, ref: 'user' },		
 		created: { type: Date, default: Date.now }
 	};
 
