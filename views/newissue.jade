@@ -12,11 +12,15 @@ block content
                 form(method='post')
                 
                  div.input-group                    
-                    select(name='projectId', class='form-control', placeholder='project')
+                    select(name='projectId', class='form-control', placeholder='project', style='width:441px')
                         - each project in projects
                             option(value=project._id) #{project.name}
+                 div.input-group                    
+                    select(name='assignedId', class='form-control', placeholder='assign to', style='width:441px')
+                        - each pmsuser in listusers
+                            option(value=pmsuser._id) #{pmsuser.login}
                  div.input-group                      
-                    input(type='text', name='title', size='50', class='form-control', placeholder='title')
+                    input(type='text', name='title', size='50', class='form-control', placeholder='title', style='width:441px')
                  div.input-group                     
                     textarea(name='content', rows='10', cols='50', class='form-control', placeholder='content')
                  div

@@ -5,7 +5,8 @@ var projectSchemaDef = {
 		name: String,
 		created: { type: Date, default: Date.now },
 		author_id: { type: mongoose.Schema.ObjectId, ref: 'user' },
-		statuses:  [{name:String, weight: Number}]	
+		statuses:  [{name:String, weight: Number}],
+		users : [{ type: mongoose.Schema.ObjectId, ref: 'user' }]
 	};	
 
 var Project = dbManager.initModel(projectSchemaDef,'project');
@@ -47,7 +48,7 @@ exports.findAll = function(eventEmitter){
 		}else{					
 			eventEmitter.emitData('data',data);
 		}
-	});		
+	}).populate('users');		
 }
 
 exports.findById = function(eventEmitter, id){	

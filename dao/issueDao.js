@@ -58,7 +58,7 @@ exports.findAll = function(eventEmitter){
 		}else{					
 			eventEmitter.emitData('data',data);
 		}
-	});		
+	}).populate('author_id').populate('assigned_id');		
 }
 
 exports.findById = function(eventEmitter, id){	

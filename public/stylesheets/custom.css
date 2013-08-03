@@ -45,14 +45,16 @@ body {
 
 .comment {
 	font-size: 10px;
-	background-color: #E2E4E4;
-	color:#3D7A99;
+	/* background-color: #E2E4E4; */
+	background-color: white;
+	/* color:#3D7A99; */
 	padding: 10px;
 }
 
 .commentMeta {
 	font-size: 10px;	
-	background-color: #E2E4E4;
+	/* background-color: #E2E4E4; */
+	background-color: white;
 	color:#000C18;
 	padding-top: 2px;
 	padding-bottom: 0px;
@@ -79,4 +81,8 @@ body {
 .issu-title-in-thumb {
 	height:70px;
 	overflow:hidden;
+}
+
+.white-bcg {
+	background-color: white;
 }

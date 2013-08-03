@@ -16,14 +16,14 @@ block content
 				span#status.label.label-success #{issue.status.name}
 
 				div.small-info
-					span created by #{issue.author_id.login} |				
-					span assigned to #{issue.assigned_id.login}
+					span created #{issue.created.toUTCString()} by #{issue.author_id === undefined ? '' : issue.author_id.login} |				
+					span assigned to #{issue.assigned_id === undefined ? 'unassigned' : issue.assigned_id.login}
 
 				hr.separator
 
 				p#content #{issue.content}
 
-				hr.separator
+				hr.divider
 
 				div#comments
 

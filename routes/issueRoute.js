@@ -1,15 +1,35 @@
 var service        = require('../service/issueService');
 var utils          = require('../service/utilService');
 var projectService = require('../service/projectService');
+var userService    = require('../service/userService');
 var commentService = require('../service/commentService');
 
-exports.newissue = function(req, res){	
-	var dataEventEmitterInstance = utils.getDataEventEmiter();
-	projectService.findAll(dataEventEmitterInstance);		
+exports.newissue = function(req, res){		
+	var projects;
+	var users;
 
-	dataEventEmitterInstance.on('data', function(){				
-		res.render('newissue', {projects: dataEventEmitterInstance.data});	
+	var multiEventEmitter = utils.getMultiEventEmitter(['projectsDone','usersDone']);
+
+	var projectsDataEventEmitter = utils.getDataEventEmiter();
+	projectService.findAll(projectsDataEventEmitter);		
+
+	projectsDataEventEmitter.on('data', function(){				
+		projects = projectsDataEventEmitter.data;		
+		multiEventEmitter.emitEvent('projectsDone');		
 	});	
+
+	var usersDataEventEmitter = utils.getDataEventEmiter();
+	userService.findAll(usersDataEventEmitter);		
+
+	usersDataEventEmitter.on('data', function(){				
+		users = usersDataEventEmitter.data;				
+		multiEventEmitter.emitEvent('usersDone');		
+	});	
+
+	multiEventEmitter.on('AllDone', function(){				
+		res.render('newissue', {projects: projects, listusers: users});	
+	});
+	
 };
 
 exports.issue_create = function(req, res){
@@ -17,8 +37,9 @@ exports.issue_create = function(req, res){
 	title = req.body.title;
 	content = req.body.content;	
 	projectId = req.body.projectId;	
+	assignedId = req.body.assignedId;
 	
-	service.create({title:title, content:content, project_id:projectId, status: {name:'new', weight: 0}});		
+	service.create({title:title, content:content, project_id:projectId, status: {name:'new', weight: 0}, assigned_id:assignedId});		
 	
 	res.redirect('/listissue');
 };
