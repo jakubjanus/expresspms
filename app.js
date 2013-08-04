@@ -56,6 +56,9 @@ app.get('/listusers', users.list);
 
 app.post('/getProjects', projects.getProjectsAJAX);
 
+app.post('/changeProject', projects.changeProjectAJAX);
+app.post('/getProjectNameInSession', projects.projectNameInSessionAJAX);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

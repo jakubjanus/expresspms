@@ -45,9 +45,13 @@ exports.issue_create = function(req, res){
 };
 
 exports.list = function(req, res){		
+
+	console.log('project id in session ' + req.session.projectId);
+	var projectId = req.session.projectId;
+
 	var dataEventEmitterInstance = utils.getDataEventEmiter();
 
-	service.findAll(dataEventEmitterInstance);
+	service.findByProject(dataEventEmitterInstance, projectId);
 
 	dataEventEmitterInstance.on('data', function(){
 		//console.log('reciving event data in router '+ dataEventEmitterInstance.data);

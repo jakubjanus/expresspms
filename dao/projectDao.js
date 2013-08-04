@@ -59,8 +59,7 @@ exports.findById = function(eventEmitter, id){
 		if (err){
 			console.log('error while finding by id');
 			eventEmitter.emitErr('err',err);
-		}else{
-			console.log('found in db '+data);
+		}else{			
 			eventEmitter.emitData('data',data);
 		}
 	});

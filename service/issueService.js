@@ -17,5 +17,9 @@ exports.findById = function(eventEmitter, id){
 	dao.findById(eventEmitter, id);	
 }
 
+exports.findByProject = function(eventEmitter, projectId){
+	dao.findByProject(eventEmitter, projectId);
+}
+
 
 

@@ -8,5 +8,4 @@ function repositionEditIcons(){
 
 $(document).ready(function() {
 	repositionEditIcons();
-
 });

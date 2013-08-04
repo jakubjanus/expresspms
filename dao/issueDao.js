@@ -76,6 +76,22 @@ exports.findById = function(eventEmitter, id){
 	});
 }
 
+exports.findByProject = function(eventEmitter, projectId){
+
+	var query = Issue.find({'project_id': projectId}).populate('author_id').populate('assigned_id');
+
+	query.find(function(err, data){
+		if (err){
+			console.log('error while finding by project id');
+			eventEmitter.emitErr('err',err);
+		}else{
+			console.log('found in db '+data);
+			eventEmitter.emitData('data',data);
+		}
+	});
+
+}
+
 
 
 
