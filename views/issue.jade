@@ -6,13 +6,15 @@ block content
 		#display
 			include navi
 
-			script(type='text/javascript', src='/javascripts/issue.js')	
+			script(type='text/javascript', src='/javascripts/common.js')
+			script(type='text/javascript', src='/javascripts/issue.js')				
 
 			<input id="id" type="hidden" value="#{issue.id}"/>
 
 			div.container.well
 
-				h4#title #{issue.title}
+				h4#title.edit #{issue.title} 				
+				
 				span#status.label.label-success #{issue.status.name}
 
 				div.small-info
@@ -21,13 +23,13 @@ block content
 
 				hr.separator
 
-				p#content #{issue.content}
+				p#content.edit #{issue.content} 				
 
 				hr.divider
 
 				div#comments
 
 				div#newComment
-					a#addComment.btn.btn-primary add comment
+					a#addComment.btn.btn-primary add comment 
 
 		include footer

@@ -28,6 +28,6 @@ $(document).ready(function() {
 		  $('.projects-list').css('left','-'+moveAmountPX+'px');
 
 		});
-	}
+	}	
 
 });

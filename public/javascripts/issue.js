@@ -1,15 +1,19 @@
 $(document).ready(function() {
 	
-	$('body').on('click', '#title', function(){
-		editTile(this);
+	$('body').on('click', '#title .edit-icon', function(){
+		var title = $(this).parent();
+		$(this).remove();
+		editTile(title);				
 	}); 
 
-	$('body').on('click', '#titleEditCancel', function(){		
+	$('body').on('click', '#titleEditCancel', function(){				
 		backFromTitleEdit();
 	}); 
 
-	$('body').on('click', '#content', function(){
-		editContent(this);
+	$('body').on('click', '#content .edit-icon', function(){
+		var content = $(this).parent();
+		$(this).remove();
+		editContent(content);				
 	}); 
 
 	$('body').on('click', '#contentEditCancel', function(){		
@@ -44,7 +48,9 @@ $(document).ready(function() {
 		  cache: false
 		}).done(function(msg) {
 		  console.log('response from serv'+msg);	
-		  backFromTitleEdit($('#titleEdit').val());		  	  	
+		  backFromTitleEdit($('#titleEdit').val());	
+		  $('#title .edit-icon').show();	  	
+		  repositionEditIcons();  	
 		});
 	});
 
@@ -53,6 +59,8 @@ $(document).ready(function() {
 		$('#titleInEdit').empty();
 		$('#titleInEdit').text(content === undefined ? orgTitle : content);
 		$('#titleInEdit').attr('id','title');	
+		$('#title .edit-icon').show();
+		repositionEditIcons();
 	}
 
 	function editTile(el){
@@ -82,7 +90,9 @@ $(document).ready(function() {
 		  cache: false
 		}).done(function(msg) {
 		  console.log('response from serv'+msg);	
-		  backFromContentEdit($('#contentEdit').val());		  	  	
+		  backFromContentEdit($('#contentEdit').val());		
+		  $('#content .edit-icon').show();  	  
+		  repositionEditIcons();	
 		});
 	});
 
@@ -91,9 +101,12 @@ $(document).ready(function() {
 		$('#contentInEdit').empty();
 		$('#contentInEdit').text(content === undefined ? orgContent : content);
 		$('#contentInEdit').attr('id','content');	
+		$('#content .edit-icon').show();  
+		repositionEditIcons();	  	
 	}
 
 	function editContent(el){
+		console.log(el);
 		$(el).unbind();
 		var elHeight = $(el).css('height');
 		var height=parseInt(/([0-9]+)px$/.exec(elHeight)[1]) + 45;

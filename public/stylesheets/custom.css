@@ -20,6 +20,15 @@ body {
 	padding-top: 5px;
 }
 
+.edit-icon {	
+	font-size: 18px;	
+	display: inline;	
+}
+
+.edit-iconX:after {
+	content: '';		
+}
+
 .inPlaceEditButton {
 	height: 20px;
 	font-size: 10px;
