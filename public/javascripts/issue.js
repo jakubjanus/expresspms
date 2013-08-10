@@ -176,8 +176,10 @@ $(document).ready(function() {
 	$('#status-active').on('click',showStatuses);
 
 	function showStatuses(){		
+		var currentWeight = $(this).find('.status-weight').val();
 		$('.status').each(function(){
-			$(this).show();
+			if ($(this).find('.status-weight').val() != currentWeight)
+				$(this).show();
 		});
 	}
 
@@ -196,18 +198,39 @@ $(document).ready(function() {
 	$('body').on('click', '.status', function(){
 		console.log('send ajax post req');
 
+		var weight = $(this).find('.status-weight').val();
+		var name = $(this).find('.status-name').val();
+		var labelClass = '';
+		var elClasses = $(this).attr('class').split(' ');
+
+		for (var i=0;i<elClasses.length;i++){		  	
+		  	if (elClasses[i].indexOf('label-') > -1){
+		  		labelClass = elClasses[i];
+		  	}
+		}	
+
 		$.ajax({
 		  url: "/changeIssueStatus",
 		  type: "POST",		  
 		  accepts: "application/json",
 		  data: {
 		      id: $('#id').val(),
-		      name: $(this).find('.status-name').val(),
-		      weight: $(this).find('.status-weight').val()		      
+		      name: name,
+		      weight: weight		      
 		  },		  
 		  cache: false
 		}).done(function(msg) {
-		  console.log('response from serv'+msg);		  
+		  console.log('response from serv'+msg);	
+		  var classes = $('#status-active').attr('class').split(' ');		  
+		  for (var i=0;i<classes.length;i++){		  	
+		  	if (classes[i].indexOf('label-') > -1){
+		  		$('#status-active').removeClass(classes[i]);
+		  	}
+		  }		  
+		  $('#status-active').text(name);
+		  $('#status-active').addClass(labelClass);
+		  $('#status-active').find('.status-weight').val(weight);		  
+		  $('#status-active').append('<input type="hidden" class="status-weight" value="'+weight+'"/>');
 		});
 	});
 
