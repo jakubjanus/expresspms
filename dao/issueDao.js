@@ -41,8 +41,7 @@ exports.update = function(eventEmitter, obj){
 		if(err){
 			console.log('error while updating issue'+err);
 			eventEmitter.emitErr('err',err);
-		}else{
-			console.log('issue updated '+data);
+		}else{			
 			eventEmitter.emitData('data',data);
 		}
 
@@ -58,19 +57,23 @@ exports.findAll = function(eventEmitter){
 		}else{					
 			eventEmitter.emitData('data',data);
 		}
-	}).populate('author_id').populate('assigned_id');		
+	}).populate('author_id').populate('assigned_id').populate('project_id');		
 }
 
 exports.findById = function(eventEmitter, id){	
 
-	var query = Issue.find({'_id' : id}).populate('author_id').populate('assigned_id');
+	var query = Issue.find({'_id' : id}).populate('author_id').populate('assigned_id').populate('project_id');
 
 	query.findOne(function (err, data){
 		if (err){
 			console.log('error while finding by id');
 			eventEmitter.emitErr('err',err);
-		}else{
-			console.log('found in db '+data);
+		}else{	
+			data.project_id.statuses.sort(function(a, b) {
+			    var textA = a.weight;
+			    var textB = b.weight;
+			    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+			});		
 			eventEmitter.emitData('data',data);
 		}
 	});
@@ -78,14 +81,13 @@ exports.findById = function(eventEmitter, id){
 
 exports.findByProject = function(eventEmitter, projectId){
 
-	var query = Issue.find({'project_id': projectId}).populate('author_id').populate('assigned_id');
+	var query = Issue.find({'project_id': projectId}).populate('author_id').populate('assigned_id').populate('project_id');
 
 	query.find(function(err, data){
 		if (err){
 			console.log('error while finding by project id');
 			eventEmitter.emitErr('err',err);
-		}else{
-			console.log('found in db '+data);
+		}else{			
 			eventEmitter.emitData('data',data);
 		}
 	});

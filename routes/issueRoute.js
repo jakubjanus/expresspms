@@ -67,8 +67,7 @@ exports.issue = function(req, res){
 
 	service.findById(dataEventEmitterInstance, id);
 
-	dataEventEmitterInstance.on('data', function(){
-		console.log('reciving event data in router '+ dataEventEmitterInstance.data);
+	dataEventEmitterInstance.on('data', function(){		
 		res.render('issue', { issue: dataEventEmitterInstance.data })	
 	});
 };
@@ -96,6 +95,19 @@ exports.updateContentAJAX = function(req, res) {
 		res.contentType('json');
   		res.send({ some: JSON.stringify({response:'json'}) });
   });	
+  
+};
+
+exports.updateStatusAJAX = function(req, res) {  
+ console.log('update issue status');
+  var dataEventEmitterInstance = utils.getDataEventEmiter();  
+
+  service.update(dataEventEmitterInstance, {_id:req.body.id, status: {name:req.body.name, weight:req.body.weight}});
+
+  dataEventEmitterInstance.on('data', function(){						
+		res.contentType('json');
+  		res.send({ some: JSON.stringify({response:'json'}) });
+	});	
   
 };
 

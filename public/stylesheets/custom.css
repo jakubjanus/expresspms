@@ -95,3 +95,16 @@ body {
 .white-bcg {
 	background-color: white;
 }
+
+.status {
+	margin:1px;
+	cursor:pointer;
+}
+
+.pointer {
+	cursor:pointer;
+}
+
+.inactive {
+	display: none;
+}

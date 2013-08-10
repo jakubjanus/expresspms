@@ -15,7 +15,8 @@ exports.getInitialStatuses = function(){
 	var initialStatuses = [
 		{name: 'new', weight: 0},
 		{name: 'in progress', weight: 1},
-		{name: 'done', weight: 2}
+		{name: 'to accept', weight: 2},
+		{name: 'done', weight: 3}
 	];			
 	return initialStatuses;
 }

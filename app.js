@@ -42,6 +42,7 @@ app.get('/issue/:id', issues.issue);
 
 app.post('/editIssueTitle', issues.updateTitleAJAX);
 app.post('/editIssueContent', issues.updateContentAJAX);
+app.post('/changeIssueStatus', issues.updateStatusAJAX);
 
 app.post('/getIssueComments', issues.getCommentsAJAX);
 app.post('/addComment', issues.addCommentAJAX);

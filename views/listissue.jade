@@ -15,8 +15,17 @@ block content
 								div.thumbnail
 									div.caption
 										div.issu-title-in-thumb
-											h5 <a href='/issue/#{issue._id}'> #{issue.title} </a> 
-										span#status.label.label-success #{issue.status.name}
+											h5 <a href='/issue/#{issue._id}'> #{issue.title} </a> 										
+										case issue.status.weight
+											when 0
+												span#status-active.pointer.label.label-default #{issue.status.name}
+											when 1
+												span#status-active.pointer.label.label-warning #{issue.status.name}
+											when 2
+												span#status-active.pointer.label.label-info #{issue.status.name}
+											when 3
+												span#status-active.pointer.label.label-success #{issue.status.name}
+
 										div.small-info
 											span created #{issue.created.toUTCString()} by #{(issue.author_id === null || issue.author_id === undefined) ? '' : issue.author_id.login} | 
 											span assigned to #{(issue.assigned_id === null || issue.assigned_id === undefined) ? 'unassigned' : issue.assigned_id.login}

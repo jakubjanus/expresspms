@@ -173,4 +173,42 @@ $(document).ready(function() {
 
 	getIssueComments();
 
+	$('#status-active').on('click',showStatuses);
+
+	function showStatuses(){		
+		$('.status').each(function(){
+			$(this).show();
+		});
+	}
+
+	//$('.statuses').mouseleave(hideStatuses);
+	$('*').on('click', hideStatuses);
+
+	function hideStatuses(){
+		if ($('#status-active').is(':hover')) {
+    	    return;
+	    }		
+		$('.status').each(function(){
+			$(this).hide();
+		});
+	}
+
+	$('body').on('click', '.status', function(){
+		console.log('send ajax post req');
+
+		$.ajax({
+		  url: "/changeIssueStatus",
+		  type: "POST",		  
+		  accepts: "application/json",
+		  data: {
+		      id: $('#id').val(),
+		      name: $(this).find('.status-name').val(),
+		      weight: $(this).find('.status-weight').val()		      
+		  },		  
+		  cache: false
+		}).done(function(msg) {
+		  console.log('response from serv'+msg);		  
+		});
+	});
+
 });
