@@ -73,11 +73,11 @@ app.post('/getProjectNameInSession', projects.projectNameInSessionAJAX);
 // ==========================================================
 
 // issues
-app.get('/projects/:project_id/issues', apiV1Issues.index);
-app.post('/projects/:project_id/issues', apiV1Issues.create);
-app.get('/projects/:project_id/issues/:id', apiV1Issues.show);
-app.put('/projects/:project_id/issues/:id', apiV1Issues.update);
-app.delete('/projects/:project_id/issues/:id', apiV1Issues.destroy);
+app.get('/projects/:projectId/issues', apiV1Issues.index);
+app.post('/projects/:projectId/issues', apiV1Issues.create);
+app.get('/projects/:projectId/issues/:id', apiV1Issues.show);
+app.put('/projects/:projectId/issues/:id', apiV1Issues.update);
+app.delete('/projects/:projectId/issues/:id', apiV1Issues.destroy);
 
 
 http.createServer(app).listen(app.get('port'), function(){
