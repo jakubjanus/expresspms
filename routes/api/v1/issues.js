@@ -46,9 +46,20 @@ exports.create = function(req, res){
 	});
 };
 
-// GET /projects/:projectId/issues/:id
+// GET /issues/:id
 exports.show = function(req, res){
+	var eventEmiter = utils.getDataEventEmiter();
+	var id = req.params.id;
+	issueService.findById(eventEmiter, id);
 
+	console.log("finding issue with id: " + id);
+
+	eventEmiter.on('data', function(){
+		res.contentType('json');
+		res.send({
+			issue: eventEmiter.data
+		});
+	});
 };
 
 // PUT /projects/:projectId/issues/:id
