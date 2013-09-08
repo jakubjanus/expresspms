@@ -76,7 +76,7 @@ app.post('/getProjectNameInSession', projects.projectNameInSessionAJAX);
 app.get('/projects/:projectId/issues', apiV1Issues.index);
 app.post('/projects/:projectId/issues', apiV1Issues.create);
 app.get('/issues/:id', apiV1Issues.show);
-app.put('/projects/:projectId/issues/:id', apiV1Issues.update);
+app.put('/issues/:id', apiV1Issues.update);
 app.delete('/projects/:projectId/issues/:id', apiV1Issues.destroy);
 
 

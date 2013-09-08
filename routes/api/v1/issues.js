@@ -62,9 +62,28 @@ exports.show = function(req, res){
 	});
 };
 
-// PUT /projects/:projectId/issues/:id
+// PUT /issues/:id
 exports.update = function(req, res){
+	var eventEmiter = utils.getDataEventEmiter();
+	var id = req.params.id;
 
+	console.log("updating issue with id: " + id);
+
+	issueData = { _id: id };
+	if (req.body.title){
+		issueData.title = req.body.title;
+	};
+	if (req.body.content){
+		issueData.content = req.body.content;
+	};
+	issueService.update(eventEmiter, issueData);
+
+	eventEmiter.on('data', function(){
+		res.contentType('json');
+		res.send({
+			status: 'updated'
+		});
+	});
 };
 
 // DELETE /projects/:projectId/issues/:id
