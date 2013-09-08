@@ -29,7 +29,7 @@ exports.create = function(req, res){
 	// TODO what is assigned_id for ??
 	var projectId = req.params.projectId;
 	console.log("creating new issue for project with id: " + projectId);
-	console.log("  with issue params:\n" + req.body);
+	console.log("  with issue params:\n" + JSON.stringify(req.body));
 	issueData = {
 		title: 			req.body.title,
 		content: 		req.body.content,
