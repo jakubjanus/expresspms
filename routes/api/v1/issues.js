@@ -2,10 +2,18 @@ var utils          = require('../../../service/utilService');
 var projectService = require('../../../service/projectService');
 var issueService   = require('../../../service/issueService');
 
+// TODO handle errors !!
+// TODO make some issues(and other resources also) json data presenters for api calls,
+//		for now every db field is returned
+// TODO think about some logger implementation, this is not a place to handle this
+// TODO think about make controllers code more dry, 
+//		here's a lot repeated code (some kind of before filters would be helpful)
+
 // GET /projects/:projectId/issues
 exports.index = function(req, res){
 	var eventEmiter = utils.getDataEventEmiter();
-	issueService.findByProject(eventEmiter, req.body.projectId);
+	console.log("issues for project with id: " + req.params.projectId)
+	issueService.findByProject(eventEmiter, req.params.projectId);
 
 	eventEmiter.on('data', function(){
 		res.contentType('json');
@@ -17,7 +25,25 @@ exports.index = function(req, res){
 
 // POST /projects/:projectId/issues
 exports.create = function(req, res){
+	// TODO add required params check
+	// TODO what is assigned_id for ??
+	var projectId = req.params.projectId;
+	console.log("creating new issue for project with id: " + projectId);
+	console.log("  with issue params:\n" + req.body);
+	issueData = {
+		title: 			req.body.title,
+		content: 		req.body.content,
+		project_id: 	projectId,
+		status: 		{ name: 'new', weight: 0 }
+	};
+	// TODO implement emmiters support for issueService#create function to handle saving errors,
+	//		so for now create action always return success status, as its no way to check if saving was successful
+	issueService.create(issueData);
 
+	res.contentType('json');
+	res.send({
+		status: 'created'
+	});
 };
 
 // GET /projects/:projectId/issues/:id
