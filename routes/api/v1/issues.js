@@ -86,7 +86,7 @@ exports.update = function(req, res){
 	});
 };
 
-// DELETE /projects/:projectId/issues/:id
+// DELETE /issues/:id
 exports.destroy = function(req, res){
-
+	// TODO implement delete function in issue service (better in another branch)
 };
