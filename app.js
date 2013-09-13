@@ -74,19 +74,19 @@ app.post('/getProjectNameInSession', projects.projectNameInSessionAJAX);
 // ==========================================================
 
 // issues
-app.get('/projects/:projectId/issues', apiV1Issues.index);
-app.post('/projects/:projectId/issues', apiV1Issues.create);
-app.get('/issues/:id', apiV1Issues.show);
-app.put('/issues/:id', apiV1Issues.update);
-app.put('/issues/:id/start', apiV1Issues.start);
-app.put('/issues/:id/submit', apiV1Issues.submit);
-app.put('/issues/:id/accept', apiV1Issues.accept);
-app.put('/issues/:id/restart', apiV1Issues.restart);
-app.delete('/issues/:id', apiV1Issues.destroy);
+app.get(	'/projects/:projectId/issues', 		apiV1Issues.index);
+app.post(	'/projects/:projectId/issues', 		apiV1Issues.create);
+app.get(	'/issues/:id', 						apiV1Issues.show);
+app.put(	'/issues/:id', 						apiV1Issues.update);
+app.put(	'/issues/:id/start', 				apiV1Issues.start);
+app.put(	'/issues/:id/submit', 				apiV1Issues.submit);
+app.put(	'/issues/:id/accept', 				apiV1Issues.accept);
+app.put(	'/issues/:id/restart', 				apiV1Issues.restart);
+app.delete(	'/issues/:id', 						apiV1Issues.destroy);
 
 // comments
-app.get('/issues/:issueId/comments', apiV1Comments.index);
-app.post('/issues/:issueId/comments', apiV1Comments.create);
+app.get(	'/issues/:issueId/comments', 		apiV1Comments.index);
+app.post(	'/issues/:issueId/comments', 		apiV1Comments.create);
 
 
 http.createServer(app).listen(app.get('port'), function(){
