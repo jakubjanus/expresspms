@@ -37,13 +37,16 @@ $(document).ready(function() {
 	$('body').on('click', '#titleEditSave', function(){
 		console.log('send ajax post req');
 
+		issue_id 		= $('#id').val();
+		request_path 	= window.location.origin + "/issues/" + issue_id;
+		issue_title		= $('#titleEdit').val();
+
 		$.ajax({
-		  url: "/editIssueTitle",
-		  type: "POST",		  
+		  url: request_path,
+		  type: "PUT",		  
 		  accepts: "application/json",
 		  data: {
-		      id: $('#id').val(),
-		      title: $('#titleEdit').val()		      
+		      title: issue_title
 		  },		  
 		  cache: false
 		}).done(function(msg) {
@@ -79,13 +82,16 @@ $(document).ready(function() {
 	$('body').on('click', '#contentEditSave', function(){
 		console.log('send ajax post req');
 
+		issue_id 		= $('#id').val();
+		request_path 	= window.location.origin + "/issues/" + issue_id;
+		issue_content	= $('#contentEdit').val();
+
 		$.ajax({
-		  url: "/editIssueContent",
-		  type: "POST",		  
+		  url: request_path,
+		  type: "PUT",		  
 		  accepts: "application/json",
 		  data: {
-		      id: $('#id').val(),
-		      content: $('#contentEdit').val()		      
+		      content: issue_content
 		  },		  
 		  cache: false
 		}).done(function(msg) {
