@@ -1,6 +1,7 @@
 var dao          = require('../dao/issueDao');
 
 //może dodać emitery aby zwracać err
+// TODO add emmiters for sure
 exports.create = function(obj){
 	dao.create(obj);
 };
@@ -21,5 +22,7 @@ exports.findByProject = function(eventEmitter, projectId){
 	dao.findByProject(eventEmitter, projectId);
 }
 
-
+exports.delete = function(eventEmitter, obj){
+	dao.delete(eventEmitter, obj);
+};
 

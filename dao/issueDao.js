@@ -16,6 +16,8 @@ var issueSchemaDef = {
 
 var Issue = dbManager.initModel(issueSchemaDef,'issue');
 
+// TODO remove log functions from here(take them to upper abstract levels)
+
 exports.create = function(obj){    
 
 	var issue = new Issue(obj);
@@ -93,6 +95,16 @@ exports.findByProject = function(eventEmitter, projectId){
 	});
 
 }
+
+exports.delete = function (eventEmitter, obj){
+	Issue.remove({ _id: obj._id }, function(err, data){
+		if (err){
+			eventEmitter.emitErr('err', err);
+		}else{
+			eventEmitter.emitData('data', data)
+		}
+	});
+};
 
 
 

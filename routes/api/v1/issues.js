@@ -37,7 +37,8 @@ exports.create = function(req, res){
 		status: 		{ name: 'new', weight: 0 }
 	};
 	// TODO implement emmiters support for issueService#create function to handle saving errors,
-	//		so for now create action always return success status, as its no way to check if saving was successful
+	//		so for now create action always return success status, as its no way to check if saving was successful,
+	//		also send new created issue id with this emiter and return it in this acion's response
 	issueService.create(issueData);
 
 	res.contentType('json');
