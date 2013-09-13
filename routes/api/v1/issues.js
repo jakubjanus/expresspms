@@ -89,5 +89,17 @@ exports.update = function(req, res){
 
 // DELETE /issues/:id
 exports.destroy = function(req, res){
-	// TODO implement delete function in issue service (better in another branch)
+	var eventEmiter = utils.getDataEventEmiter();
+	var id = req.params.id;
+
+	console.log("deleting issue with id: " + id);
+
+	issueService.delete(eventEmiter, id);
+
+	eventEmiter.on('data', function(){
+		res.contentType('json');
+		res.send({
+			status: 'deleted'
+		});
+	});
 };

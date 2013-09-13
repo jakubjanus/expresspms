@@ -96,8 +96,8 @@ exports.findByProject = function(eventEmitter, projectId){
 
 }
 
-exports.delete = function (eventEmitter, obj){
-	Issue.remove({ _id: obj._id }, function(err, data){
+exports.delete = function (eventEmitter, id){
+	Issue.remove({ _id: id }, function(err, data){
 		if (err){
 			eventEmitter.emitErr('err', err);
 		}else{

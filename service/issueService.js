@@ -22,7 +22,7 @@ exports.findByProject = function(eventEmitter, projectId){
 	dao.findByProject(eventEmitter, projectId);
 }
 
-exports.delete = function(eventEmitter, obj){
-	dao.delete(eventEmitter, obj);
+exports.delete = function(eventEmitter, id){
+	dao.delete(eventEmitter, id);
 };
 
