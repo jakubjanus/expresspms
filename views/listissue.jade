@@ -6,17 +6,20 @@ block content
 		#display
 			include navi
 
+			script(type='text/javascript', src='/javascripts/common.js')
+			script(type='text/javascript', src='/javascripts/listissue.js')
+
 			div.container
 
 				h3 List of issues (#{listissues.length})
 
 				- each issue, i in listissues			
-							div.col-lg-3
+							div.issue-list-item.col-lg-3(data-issue-id = '#{issue._id}')
 								div.thumbnail
 									div.caption
 										div.issu-title-in-thumb
-											button.close(type = 'button', arria-hidden = 'true', data-issue-id = '#{issue._id}') &times;
-											h5 <a href='/issue/#{issue._id}'> #{issue.title} </a> 
+											button.remove-issue.close(type = 'button', arria-hidden = 'true') &times;
+											h5.issue-title <a href='/issue/#{issue._id}'> #{issue.title} </a> 
 										case issue.status.weight
 											when 0
 												span#status-active.pointer.label.label-default #{issue.status.name}
