@@ -37,9 +37,9 @@ $(document).ready(function() {
 	$('body').on('click', '#titleEditSave', function(){
 		console.log('send ajax post req');
 
-		issue_id 		= $('#id').val();
-		request_path 	= window.location.origin + "/issues/" + issue_id;
-		issue_title		= $('#titleEdit').val();
+		var issue_id 		= $('#id').val();
+		var request_path 	= window.location.origin + "/issues/" + issue_id;
+		var issue_title		= $('#titleEdit').val();
 
 		$.ajax({
 		  url: request_path,
@@ -82,9 +82,9 @@ $(document).ready(function() {
 	$('body').on('click', '#contentEditSave', function(){
 		console.log('send ajax post req');
 
-		issue_id 		= $('#id').val();
-		request_path 	= window.location.origin + "/issues/" + issue_id;
-		issue_content	= $('#contentEdit').val();
+		var issue_id 		= $('#id').val();
+		var request_path 	= window.location.origin + "/issues/" + issue_id;
+		var issue_content	= $('#contentEdit').val();
 
 		$.ajax({
 		  url: request_path,
@@ -130,8 +130,8 @@ $(document).ready(function() {
 	function getIssueComments(){
 		console.log('send ajax post req');
 
-		issue_id 		= $('#id').val();
-		request_path 	= window.location.origin + '/issues/' + issue_id + '/comments'
+		var issue_id 		= $('#id').val();
+		var request_path 	= window.location.origin + '/issues/' + issue_id + '/comments'
 
 		$.ajax({
 		  url: request_path,
@@ -164,9 +164,9 @@ $(document).ready(function() {
 	function addNewComment(){
 		console.log('send ajax post req');
 
-		issue_id 		= $('#id').val();
-		request_path 	= window.location.origin + '/issues/' + issue_id + '/comments'
-		comment_content	= $('#newCommentContent').val();
+		var issue_id 		= $('#id').val();
+		var request_path 	= window.location.origin + '/issues/' + issue_id + '/comments'
+		var comment_content	= $('#newCommentContent').val();
 
 		$.ajax({
 		  url: request_path,
