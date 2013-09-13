@@ -124,19 +124,22 @@ $(document).ready(function() {
 	function getIssueComments(){
 		console.log('send ajax post req');
 
+		issue_id 		= $('#id').val();
+		request_path 	= window.location.origin + '/issues/' + issue_id + '/comments'
+
 		$.ajax({
-		  url: "/getIssueComments",
-		  type: "POST",		  
+		  url: request_path,
+		  type: "GET",		  
 		  accepts: "application/json",
 		  data: {
-		      issue_id: $('#id').val()
+		      issue_id: issue_id
 		  },		  
 		  cache: false
-		}).done(function(msg) {
-		  
-		  for (var i = 0; i < msg.length ; i++) {
-		  	 var content = msg[i].content;
-		  	 var created = msg[i].created;
+		}).done(function(data) {
+		  comments = data.comments;
+		  for (var i = 0; i < comments.length ; i++) {
+		  	 var content = comments[i].content;
+		  	 var created = comments[i].created;
 		  	 $('#comments').append('<p class="commentMeta">'+created+'</p>');
 		  	 $('#comments').append('<p class="comment">'+content+'</p>');
 		  };			  
@@ -155,13 +158,16 @@ $(document).ready(function() {
 	function addNewComment(){
 		console.log('send ajax post req');
 
+		issue_id 		= $('#id').val();
+		request_path 	= window.location.origin + '/issues/' + issue_id + '/comments'
+		comment_content	= $('#newCommentContent').val();
+
 		$.ajax({
-		  url: "/addComment",
+		  url: request_path,
 		  type: "POST",		  
 		  accepts: "application/json",
 		  data: {
-		      issue_id: $('#id').val(),
-		      comment_content: $('#newCommentContent').val()
+		      content: comment_content
 		  },		  
 		  cache: false
 		}).done(function(msg) {
