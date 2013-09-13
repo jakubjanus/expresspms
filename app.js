@@ -48,12 +48,12 @@ app.get('/issue/:id', issues.issue);
 
 // TODO delete all ajax action from this section,
 // 	and replace with appropriate REST api actions
-app.post('/editIssueTitle', issues.updateTitleAJAX);
-app.post('/editIssueContent', issues.updateContentAJAX);
+// app.post('/editIssueTitle', issues.updateTitleAJAX);
+// app.post('/editIssueContent', issues.updateContentAJAX);
 app.post('/changeIssueStatus', issues.updateStatusAJAX);
 
-app.post('/getIssueComments', issues.getCommentsAJAX);
-app.post('/addComment', issues.addCommentAJAX);
+// app.post('/getIssueComments', issues.getCommentsAJAX);
+// app.post('/addComment', issues.addCommentAJAX);
 
 app.get('/newproject', projects.newproject);
 app.post('/newproject', projects.project_create);
@@ -78,6 +78,9 @@ app.get('/projects/:projectId/issues', apiV1Issues.index);
 app.post('/projects/:projectId/issues', apiV1Issues.create);
 app.get('/issues/:id', apiV1Issues.show);
 app.put('/issues/:id', apiV1Issues.update);
+app.put('/issues/:id/start', apiV1Issues.start);
+app.put('/issues/:id/submit', apiV1Issues.submit);
+app.put('/issues/:id/accept', apiV1Issues.accept);
 app.delete('/issues/:id', apiV1Issues.destroy);
 
 // comments

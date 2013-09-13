@@ -87,6 +87,74 @@ exports.update = function(req, res){
 	});
 };
 
+// TODO dry all status changing actions(they are almost the same)
+
+// PUT /issues/:id/start
+exports.start = function(req, res){
+	var eventEmiter = utils.getDataEventEmiter();
+	var id = req.params.id;
+
+	console.log('starting issue with id: ' + id);
+
+	// TODO move start implementation to issueService !!
+	issueData = {
+		_id: id,
+		status: { name: 'in progress', weight: 1 }
+	};
+	issueService.update(eventEmiter, issueData);
+
+	eventEmiter.on('data', function(){
+		res.contentType('json');
+		res.send({
+			status: 'started'
+		});
+	});
+};
+
+// PUT /issues/:id/submit
+exports.submit = function(req, res){
+	var eventEmiter = utils.getDataEventEmiter();
+	var id = req.params.id;
+
+	console.log('submitting issue with id: ' + id);
+
+	// TODO move submit implementation to issueService !!
+	issueData = {
+		_id: id,
+		status: { name: 'to accept', weight: 2 }
+	};
+	issueService.update(eventEmiter, issueData);
+
+	eventEmiter.on('data', function(){
+		res.contentType('json');
+		res.send({
+			status: 'submitted'
+		});
+	});
+};
+
+// PUT /issues/:id/accept
+exports.accept = function(req, res){
+	var eventEmiter = utils.getDataEventEmiter();
+	var id = req.params.id;
+
+	console.log('accepting issue with id: ' + id);
+
+	// TODO move accept implementation to issueService !!
+	issueData = {
+		_id: id,
+		status: { name: 'done', weight: 3 }
+	};
+	issueService.update(eventEmiter, issueData);
+
+	eventEmiter.on('data', function(){
+		res.contentType('json');
+		res.send({
+			status: 'accepted'
+		});
+	});
+};
+
 // DELETE /issues/:id
 exports.destroy = function(req, res){
 	var eventEmiter = utils.getDataEventEmiter();
