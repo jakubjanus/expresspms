@@ -10,6 +10,7 @@ var express = require('express')
   , projects = require('./routes/projectRoute')
   , apiV1Issues = require('./routes/api/v1/issues')
   , apiV1Comments = require('./routes/api/v1/comments')
+  , apiV1Projects = require('./routes/api/v1/projects')
   , http = require('http')
   , path = require('path');
 
@@ -65,6 +66,7 @@ app.get('/listusers', users.list);
 
 app.post('/getProjects', projects.getProjectsAJAX);
 
+//  TODO think about some other solution to change projects
 app.post('/changeProject', projects.changeProjectAJAX);
 app.post('/getProjectNameInSession', projects.projectNameInSessionAJAX);
 
@@ -87,6 +89,10 @@ app.delete(	'/issues/:id', 						apiV1Issues.destroy);
 // comments
 app.get(	'/issues/:issueId/comments', 		apiV1Comments.index);
 app.post(	'/issues/:issueId/comments', 		apiV1Comments.create);
+
+// projects
+app.get(	'/projects', 						apiV1Projects.index);
+app.get(	'/projects/:id',					apiV1Projects.show);
 
 
 http.createServer(app).listen(app.get('port'), function(){
