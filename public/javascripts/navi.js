@@ -8,15 +8,16 @@ $(document).ready(function() {
 		$('.projects-list').empty();
 
 		//todo ograniczyć tylko do tego co potrzebne (nazwa,id) - nie pobierać całych projektów
+		//		yes we need presenters to all resources
 		$.ajax({
-		  url: "/getProjects",
-		  type: "POST",		  
+		  url: "/projects",
+		  type: "GET",		  
 		  accepts: "application/json",		  	 
 		  cache: false
-		}).done(function(msg) {
-		  
-		  for (var i = 0; i < msg.length ; i++) {		  	 
-		  	 $('.projects-list').append('<li><a href="#" id="'+msg[i]._id+'" class="project-in-menu">'+msg[i].name+'</a></li>');
+		}).done(function(data) {
+		  var projects = data.projects;
+		  for (var i = 0; i < projects.length ; i++) {		  	 
+		  	 $('.projects-list').append('<li><a href="#" id="'+projects[i]._id+'" class="project-in-menu">'+projects[i].name+'</a></li>');
 		  };	
 
 		  //dopasownie aby rozwijał treść na lewo - na razie nie znalazłem innego rozwiązania		  

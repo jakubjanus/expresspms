@@ -64,7 +64,7 @@ app.get('/newuser', users.newuser);
 app.post('/newuser', users.user_create);
 app.get('/listusers', users.list);
 
-app.post('/getProjects', projects.getProjectsAJAX);
+// app.post('/getProjects', projects.getProjectsAJAX);
 
 //  TODO think about some other solution to change projects
 app.post('/changeProject', projects.changeProjectAJAX);
