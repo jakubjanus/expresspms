@@ -9,6 +9,7 @@ var express = require('express')
   , issues = require('./routes/issueRoute')
   , projects = require('./routes/projectRoute')
   , apiV1Issues = require('./routes/api/v1/issues')
+  , apiV1Comments = require('./routes/api/v1/comments')
   , http = require('http')
   , path = require('path');
 
@@ -78,6 +79,10 @@ app.post('/projects/:projectId/issues', apiV1Issues.create);
 app.get('/issues/:id', apiV1Issues.show);
 app.put('/issues/:id', apiV1Issues.update);
 app.delete('/issues/:id', apiV1Issues.destroy);
+
+// comments
+app.get('/issues/:issueId/comments', apiV1Comments.index);
+app.post('/issues/:issueId/comments', apiV1Comments.create);
 
 
 http.createServer(app).listen(app.get('port'), function(){
