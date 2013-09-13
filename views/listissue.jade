@@ -15,7 +15,8 @@ block content
 								div.thumbnail
 									div.caption
 										div.issu-title-in-thumb
-											h5 <a href='/issue/#{issue._id}'> #{issue.title} </a> 										
+											button.close(type = 'button', arria-hidden = 'true', data-issue-id = '#{issue._id}') &times;
+											h5 <a href='/issue/#{issue._id}'> #{issue.title} </a> 
 										case issue.status.weight
 											when 0
 												span#status-active.pointer.label.label-default #{issue.status.name}
