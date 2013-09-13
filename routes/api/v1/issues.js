@@ -155,6 +155,28 @@ exports.accept = function(req, res){
 	});
 };
 
+// PUT /issues/:id/restart
+exports.restart = function(req, res){
+	var eventEmiter = utils.getDataEventEmiter();
+	var id = req.params.id;
+
+	console.log('restarting issue with id: ' + id);
+
+	// TODO move restart implementation to issueService !!
+	issueData = {
+		_id: id,
+		status: { name: 'new', weight: 0 }
+	};
+	issueService.update(eventEmiter, issueData);
+
+	eventEmiter.on('data', function(){
+		res.contentType('json');
+		res.send({
+			status: 'restarted'
+		});
+	});
+};
+
 // DELETE /issues/:id
 exports.destroy = function(req, res){
 	var eventEmiter = utils.getDataEventEmiter();

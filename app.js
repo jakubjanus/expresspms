@@ -50,7 +50,7 @@ app.get('/issue/:id', issues.issue);
 // 	and replace with appropriate REST api actions
 // app.post('/editIssueTitle', issues.updateTitleAJAX);
 // app.post('/editIssueContent', issues.updateContentAJAX);
-app.post('/changeIssueStatus', issues.updateStatusAJAX);
+// app.post('/changeIssueStatus', issues.updateStatusAJAX);
 
 // app.post('/getIssueComments', issues.getCommentsAJAX);
 // app.post('/addComment', issues.addCommentAJAX);
@@ -81,6 +81,7 @@ app.put('/issues/:id', apiV1Issues.update);
 app.put('/issues/:id/start', apiV1Issues.start);
 app.put('/issues/:id/submit', apiV1Issues.submit);
 app.put('/issues/:id/accept', apiV1Issues.accept);
+app.put('/issues/:id/restart', apiV1Issues.restart);
 app.delete('/issues/:id', apiV1Issues.destroy);
 
 // comments

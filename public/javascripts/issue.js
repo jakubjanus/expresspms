@@ -210,7 +210,7 @@ $(document).ready(function() {
 	$('body').on('click', '.status', function(){
 		console.log('send ajax post req');
 
-		var weight = $(this).find('.status-weight').val();
+		var weight = parseInt($(this).find('.status-weight').val());
 		var name = $(this).find('.status-name').val();
 		var labelClass = '';
 		var elClasses = $(this).attr('class').split(' ');
@@ -221,15 +221,28 @@ $(document).ready(function() {
 		  	}
 		}	
 
+		var issue_id = $('#id').val();
+		var request_action;
+		switch(weight){
+			case 0:
+				request_action = "restart";
+				break;
+			case 1:
+				request_action = "start";
+				break;
+			case 2:
+				request_action = "submit";
+				break;
+			case 3:
+				request_action = "accept";
+				break;
+		};
+		var request_path = window.location.origin + "/issues/" + issue_id + "/" + request_action;
+
 		$.ajax({
-		  url: "/changeIssueStatus",
-		  type: "POST",		  
-		  accepts: "application/json",
-		  data: {
-		      id: $('#id').val(),
-		      name: name,
-		      weight: weight		      
-		  },		  
+		  url: request_path,
+		  type: "PUT",		  
+		  accepts: "application/json",		  
 		  cache: false
 		}).done(function(msg) {
 		  console.log('response from serv'+msg);	
