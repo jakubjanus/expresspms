@@ -87,8 +87,6 @@ exports.update = function(req, res){
 	});
 };
 
-// TODO dry all status changing actions(they are almost the same)
-
 // PUT /issues/:id/start
 exports.start = function(req, res){
 	var eventEmiter = utils.getDataEventEmiter();
