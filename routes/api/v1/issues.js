@@ -96,12 +96,7 @@ exports.start = function(req, res){
 
 	console.log('starting issue with id: ' + id);
 
-	// TODO move start implementation to issueService !!
-	issueData = {
-		_id: id,
-		status: { name: 'in progress', weight: 1 }
-	};
-	issueService.update(eventEmiter, issueData);
+	issueService.start(eventEmiter, id);
 
 	eventEmiter.on('data', function(){
 		res.contentType('json');
@@ -118,12 +113,7 @@ exports.submit = function(req, res){
 
 	console.log('submitting issue with id: ' + id);
 
-	// TODO move submit implementation to issueService !!
-	issueData = {
-		_id: id,
-		status: { name: 'to accept', weight: 2 }
-	};
-	issueService.update(eventEmiter, issueData);
+	issueService.submit(eventEmiter, id);
 
 	eventEmiter.on('data', function(){
 		res.contentType('json');
@@ -140,12 +130,7 @@ exports.accept = function(req, res){
 
 	console.log('accepting issue with id: ' + id);
 
-	// TODO move accept implementation to issueService !!
-	issueData = {
-		_id: id,
-		status: { name: 'done', weight: 3 }
-	};
-	issueService.update(eventEmiter, issueData);
+	issueService.accept(eventEmiter, id);
 
 	eventEmiter.on('data', function(){
 		res.contentType('json');
@@ -162,12 +147,7 @@ exports.restart = function(req, res){
 
 	console.log('restarting issue with id: ' + id);
 
-	// TODO move restart implementation to issueService !!
-	issueData = {
-		_id: id,
-		status: { name: 'new', weight: 0 }
-	};
-	issueService.update(eventEmiter, issueData);
+	issueService.restart(eventEmiter, id);
 
 	eventEmiter.on('data', function(){
 		res.contentType('json');
