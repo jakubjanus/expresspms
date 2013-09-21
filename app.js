@@ -1,3 +1,4 @@
+// TODO devide this file into smaller ones, this could grow quite big as app goes bigger
 
 /**
  * Module dependencies.
@@ -12,7 +13,8 @@ var express = require('express')
   , apiV1Comments = require('./routes/api/v1/comments')
   , apiV1Projects = require('./routes/api/v1/projects')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , everyauth = require('everyauth');
 
 var app = express();
 
@@ -34,6 +36,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+// use everyauth middleware
+app.use(everyauth.middleware(app));
+
 
 // ==========================================================
 //     					html routes
