@@ -12,3 +12,7 @@ exports.findAll = function(eventEmitter){
 exports.findById = function(eventEmitter, id){
 	dao.findById(eventEmitter, id);	
 }
+
+exports.findByLogin = function(eventEmitter, login){
+	dao.findByLogin(eventEmitter, login);
+}

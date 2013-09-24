@@ -7,7 +7,7 @@
 var express = require('express')
   , routes = require('./routes')
   , users = require('./routes/userRoute')
-  , issues = require('./routes/issueRoute')
+  // , issues = require('./routes/issueRoute')
   , projects = require('./routes/projectRoute')
   , apiV1Issues = require('./routes/api/v1/issues')
   , apiV1Comments = require('./routes/api/v1/comments')
@@ -28,7 +28,8 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
-app.use(app.router);
+
+// app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -37,9 +38,54 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// use everyauth middleware
-app.use(everyauth.middleware(app));
 
+var userService     = require('./service/userService');
+var utils           = require('./service/utilService');
+var emitter         = utils.getDataEventEmiter();
+
+// everyauth user find helper method
+everyauth.everymodule.findUserById( function(req, userId, callback){
+  var userEmitter = utils.getDataEventEmiter();
+  userService.findById(userEmitter, userId);
+  
+  userEmitter.on('data', function(){
+    callback(null, userEmitter.data);
+  });
+});
+
+everyauth.password
+  .getLoginPath('/login')
+  .postLoginPath('/login')
+  .loginView('login.jade')
+  .authenticate(function(login, password){
+    var promise = this.Promise();
+    userService.findByLogin(emitter, login);
+    emitter.on('data', function(){
+      // TODO implement password check !!!!
+      promise.fulfill(emitter.data);
+    });
+    emitter.on('err', function(){
+      promise.fulfill([emitter.err])
+    })
+    return promise;
+  })
+  .loginSuccessRedirect('/')
+  .getRegisterPath('/register')
+  .postRegisterPath('/register')
+  .registerView('newuser.jade')
+  .validateRegistration(function(userAttributes){
+    // TODO implement
+  })
+  .registerUser(function(userAttributes){
+    // TODO implement
+  })
+  .registerSuccessRedirect('/');
+
+app.use(everyauth.middleware(app));
+app.use(app.router);
+
+
+var issues = require('./routes/issueRoute');
 
 // ==========================================================
 //     					html routes

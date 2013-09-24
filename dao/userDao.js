@@ -12,6 +12,11 @@ var userSchemaDef = {
 
 var User = dbManager.initModel(userSchemaDef,'user');
 
+// TODO think about getting rid of login(maybe email is enough)
+// TODO add validations !!
+// 			- password must be present
+// 			- uniq login
+// 			- uniq email
 exports.create = function(obj){    
 	
 	var user = new User(obj);
@@ -48,6 +53,16 @@ exports.findById = function(eventEmitter, id){
 		}else{
 			console.log('found in db '+data);
 			eventEmitter.emitData('data',data);
+		}
+	});
+}
+
+exports.findByLogin = function(eventEmitter, login){
+	User.find({'login': login}).findOne(function (err, data){
+		if (err){
+			eventEmitter.emitErr('err', err);
+		}else{
+			eventEmitter.emitData('data', data)
 		}
 	});
 }
