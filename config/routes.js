@@ -27,8 +27,6 @@ initializeHTMLRoutes = function(app){
 	app.post(	'/newproject', 								projects.project_create);
 	app.get(	'/listprojects', 							projects.list);
 
-	app.get(	'/newuser', 									users.newuser);
-	app.post(	'/newuser', 									users.user_create);
 	app.get(	'/listusers', 								users.list);
 
 	//  TODO think about some other solution to change projects
