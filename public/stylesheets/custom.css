@@ -78,6 +78,12 @@ body {
 	padding-right: 70px;
 }
 
+.login-panel {
+	top: 10px;
+	right: 10px;
+	float: right;
+}
+
 .small-info {
 	font-size: 10px;
 }

@@ -13,3 +13,20 @@
 		div.btn-group.project-switcher
 			<button type="button" class="btn btn-default dropdown-toggle switch-project" data-toggle="dropdown"> Switch project <span class="caret"></span></button>
 			ul.dropdown-menu.projects-list
+
+		div.btn-group.login-panel
+			button.btn.btn-primary.dropdown-toggle(type='button', data-toggle='dropdown')
+				if everyauth.user
+					span Signed in as #{everyauth.user.login}
+				else
+					span Sign in
+				span.caret
+			ul.dropdown-menu.login-dropdown
+				if everyauth.user
+					li
+						a(href='/logout') Sign out
+				else
+					li
+						a(href='/login') Sign in
+					li
+						a(href='/register') Sign up
