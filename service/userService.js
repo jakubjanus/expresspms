@@ -1,9 +1,8 @@
 var dao           = require('../dao/userDao');
 var utils         = require('./utilService');
 
-//może dodać emitery aby zwracać err
-exports.create = function(obj){
-	dao.create(obj);
+exports.create = function(eventEmitter, obj){
+	dao.create(eventEmitter, obj);
 };
 
 exports.findAll = function(eventEmitter){
@@ -33,11 +32,11 @@ exports.validate = function(eventEmitter, attributes){
 checkRequiredAttributes = function(attributes, errs){
   var valid = true;
   if (!attributes.login){
-    errs.push("'login' attribute is required");
+    errs.push("login attribute is required");
     valid = false;
   }
   if (!attributes.password){
-    errs.push("'password' attribute is required");
+    errs.push("password attribute is required");
     valid = false;
   }
   return valid;
@@ -45,7 +44,7 @@ checkRequiredAttributes = function(attributes, errs){
 
 checkPassword = function(attributes, errs){
   if (attributes.password && attributes.password.length < 5){
-    errs.push("'password' should be at least 5 character length");
+    errs.push("password should be at least 5 character length");
     return false;
   }else{
     return true;
@@ -58,7 +57,7 @@ checkLoginUniqness = function(eventEmitter, attributes, errs){
   helperEmitter.on('data', function(){
     var result = true;
     if (helperEmitter.data){
-      errs.push("'login' is already taken");
+      errs.push("login is already taken");
       result = false;
     }
     eventEmitter.emitData('data', result);

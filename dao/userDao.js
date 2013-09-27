@@ -13,19 +13,19 @@ var userSchemaDef = {
 var User = dbManager.initModel(userSchemaDef,'user');
 
 // TODO think about getting rid of login(maybe email is enough)
-// TODO add validations !!
 // 			- password must be present
 // 			- uniq login
 // 			- uniq email
-exports.create = function(obj){    
-	
+exports.create = function(eventEmitter, obj){    
 	var user = new User(obj);
 	
 	user.save(function(err, user){
 		if (err){
 			console.log('error while saving user');
+			eventEmitter.emitErr('err', err);
 		}else{
 			console.log('save completed');
+			eventEmitter.emitData('data', user);
 		}
 	});	
 }
