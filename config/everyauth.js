@@ -34,11 +34,33 @@ exports.initializeEveryauth = function (){
 	  .getRegisterPath('/register')
 	  .postRegisterPath('/register')
 	  .registerView('newuser.jade')
+	  .extractExtraRegistrationParams(function(req){
+	  	return {
+	  		email: 			req.body.email,
+	  		firstName: 	req.body.firstName,
+	  		lastName: 	req.body.lastName
+	  	}
+	  })
 	  .validateRegistration(function(userAttributes){
-	    // TODO implement
+	    var promise = this.Promise();
+	    var emitter = utils.getDataEventEmiter();
+	    userService.validate(emitter, userAttributes);
+
+	    emitter.on('data', function(){
+	    	promise.fulfill(emitter.data);
+	    });
+
+	    return promise;
 	  })
 	  .registerUser(function(userAttributes){
 	    // TODO implement
+	  //   login = req.body.login;
+			// password = req.body.password;
+			// email = req.body.email;
+			// firstName = req.body.firstName;
+			// lastName = req.body.lastName;
+			
+			// userService.create({login:login, password:password, email:email, firstName:firstName, lastName:lastName});
 	  })
 	  .registerSuccessRedirect('/');
 
