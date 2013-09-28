@@ -2,6 +2,7 @@ var dao           = require('../dao/userDao');
 var utils         = require('./utilService');
 var bcrypt        = require('bcrypt');
 var _             = require('underscore');
+var Validator     = new (require('validator')).Validator;
 
 exports.create = function(eventEmitter, obj){
 	attributes = _.clone(obj);
@@ -26,6 +27,7 @@ exports.validate = function(eventEmitter, attributes){
   var helperEmitter = utils.getDataEventEmiter();
   checkRequiredAttributes(attributes, errors);
   checkPasswordParam(attributes, errors);
+  checkEmailParam(attributes, errors);
   checkLoginUniqness(helperEmitter, attributes, errors);
 
   helperEmitter.on('data', function(){
@@ -69,6 +71,15 @@ checkPasswordParam = function(attributes, errs){
   }
 }
 
+checkEmailParam = function(attributes, errs){
+  if (attributes.email && !Validator.check(attributes.email).isEmail()){
+    errs.push('email is not correct');
+    return false;
+  }else{
+    return true;
+  }
+}
+
 checkLoginUniqness = function(eventEmitter, attributes, errs){
   var helperEmitter = utils.getDataEventEmiter();
   dao.findByLogin(helperEmitter, attributes.login);
@@ -90,3 +101,13 @@ encryptPassword = function(password){
 checkPassword = function(user, passwordToCheck){
   return bcrypt.compareSync(passwordToCheck, user.password);
 }
+
+initializeValidator = function(){
+  // override error method, to Validator.check method return false when invalid instead of throwing error
+  Validator.error = function(msg){
+    return false;
+  }
+}
+
+
+initializeValidator();
