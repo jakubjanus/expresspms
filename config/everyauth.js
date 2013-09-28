@@ -20,9 +20,9 @@ exports.initializeEveryauth = function (){
 	  .loginView('login.jade')
 	  .authenticate(function(login, password){
 	    var promise = this.Promise();
-	    userService.findByLogin(emitter, login);
+	    // userService.findByLogin(emitter, login);
+	    userService.login(emitter, login, password);
 	    emitter.on('data', function(){
-	      // TODO implement password check !!!!
 	      promise.fulfill(emitter.data);
 	    });
 	    emitter.on('err', function(){

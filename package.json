@@ -10,6 +10,8 @@
     "jade": "0.33.0",
     "stylus": "0.36.*",
     "mongoose": "3.6.*",
-    "everyauth": "0.4.*"
+    "everyauth": "0.4.*",
+    "bcrypt": "*",
+    "underscore": "1.5.*"
   }
 }

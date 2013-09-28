@@ -1,8 +1,12 @@
 var dao           = require('../dao/userDao');
 var utils         = require('./utilService');
+var bcrypt        = require('bcrypt');
+var _             = require('underscore');
 
 exports.create = function(eventEmitter, obj){
-	dao.create(eventEmitter, obj);
+	attributes = _.clone(obj);
+  attributes.password = encryptPassword(attributes.password);
+  dao.create(eventEmitter, attributes);
 };
 
 exports.findAll = function(eventEmitter){
@@ -21,11 +25,25 @@ exports.validate = function(eventEmitter, attributes){
   var errors = [];
   var helperEmitter = utils.getDataEventEmiter();
   checkRequiredAttributes(attributes, errors);
-  checkPassword(attributes, errors);
+  checkPasswordParam(attributes, errors);
   checkLoginUniqness(helperEmitter, attributes, errors);
 
   helperEmitter.on('data', function(){
     eventEmitter.emitData('data', errors);
+  });
+}
+
+exports.login = function(eventEmitter, login, password){
+  var helperEmitter = utils.getDataEventEmiter();
+  this.findByLogin(helperEmitter, login);
+
+  helperEmitter.on('data', function(){
+    var user = helperEmitter.data;
+    if (password && checkPassword(user, password)){
+      eventEmitter.emitData('data', user);
+    }else{
+      eventEmitter.emitData('data', ['incorrect password']);
+    }
   });
 }
 
@@ -42,7 +60,7 @@ checkRequiredAttributes = function(attributes, errs){
   return valid;
 }
 
-checkPassword = function(attributes, errs){
+checkPasswordParam = function(attributes, errs){
   if (attributes.password && attributes.password.length < 5){
     errs.push("password should be at least 5 character length");
     return false;
@@ -62,4 +80,13 @@ checkLoginUniqness = function(eventEmitter, attributes, errs){
     }
     eventEmitter.emitData('data', result);
   });
+}
+
+encryptPassword = function(password){
+  var salt = bcrypt.genSaltSync(10);
+  return bcrypt.hashSync(password, salt);
+}
+
+checkPassword = function(user, passwordToCheck){
+  return bcrypt.compareSync(passwordToCheck, user.password);
 }
