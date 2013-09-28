@@ -9,6 +9,13 @@ block content
             
                 h3 Sign in
 
+                if errors
+                    div.alert.alert-danger
+                        p There were some errors
+                        ul.error-list
+                            - each error in errors
+                                li #{error}
+
                 form(method='post')
 
                  div.input-group                      
